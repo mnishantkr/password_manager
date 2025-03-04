@@ -2,10 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { PlusCircle, Search } from "lucide-react";
+import { PlusCircle, Search, Download } from "lucide-react";
 import { getCredentials } from '@/utils/storage';
 import CredentialCard from '@/components/CredentialCard';
 import ImportCredentials from '@/components/ImportCredentials';
+import ExportCredentials from '@/components/ExportCredentials';
 
 export type Credential = {
   id: string;
@@ -22,6 +23,7 @@ const Dashboard = () => {
   const [credentials, setCredentials] = useState<Credential[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [showImport, setShowImport] = useState(false);
+  const [showExport, setShowExport] = useState(false);
 
   useEffect(() => {
     // Load credentials when component mounts
@@ -52,10 +54,16 @@ const Dashboard = () => {
                 className="pl-9"
               />
             </div>
-            <Button onClick={() => setShowImport(true)}>
-              <PlusCircle className="h-4 w-4 mr-2" />
-              Import
-            </Button>
+            <div className="flex gap-2">
+              <Button onClick={() => setShowImport(true)}>
+                <PlusCircle className="h-4 w-4 mr-2" />
+                Import
+              </Button>
+              <Button variant="outline" onClick={() => setShowExport(true)}>
+                <Download className="h-4 w-4 mr-2" />
+                Export
+              </Button>
+            </div>
           </div>
         </div>
 
@@ -88,6 +96,13 @@ const Dashboard = () => {
               setCredentials(prev => [...prev, ...newCredentials]);
               setShowImport(false);
             }}
+          />
+        )}
+
+        {showExport && (
+          <ExportCredentials
+            credentials={credentials}
+            onClose={() => setShowExport(false)}
           />
         )}
       </div>
