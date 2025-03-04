@@ -2,7 +2,7 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Shield, Key, FileImport, Clock } from "lucide-react";
+import { Shield, Key, Import, Clock } from "lucide-react";
 
 const Index = () => {
   return (
@@ -37,7 +37,7 @@ const Index = () => {
             description="All your passwords are encrypted using AES-256 encryption, ensuring top-notch security." 
           />
           <FeatureCard 
-            icon={<FileImport className="h-8 w-8 text-primary" />}
+            icon={<Import className="h-8 w-8 text-primary" />}
             title="Multi-Format Import"
             description="Import credentials from various password managers in formats like JSON, CSV, and more." 
           />

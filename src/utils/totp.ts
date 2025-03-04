@@ -1,8 +1,30 @@
 
 import { createHmac } from 'crypto-js';
-import Base32 from 'crypto-js/enc-base32';
 import Hex from 'crypto-js/enc-hex';
 import WordArray from 'crypto-js/lib-typedarrays';
+
+// Base32 decoder function since crypto-js doesn't have a direct import for it
+function base32ToHex(base32: string) {
+  const base32Chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
+  let bits = '';
+  let hex = '';
+
+  // Convert each Base32 character to its 5-bit value
+  for (let i = 0; i < base32.length; i++) {
+    const val = base32Chars.indexOf(base32.charAt(i).toUpperCase());
+    if (val >= 0) {
+      bits += val.toString(2).padStart(5, '0');
+    }
+  }
+
+  // Convert 5-bit groups to 4-bit (hex) groups
+  for (let i = 0; i + 4 <= bits.length; i += 4) {
+    const chunk = bits.substring(i, i + 4);
+    hex += parseInt(chunk, 2).toString(16);
+  }
+
+  return hex;
+}
 
 export function generateTOTP(secret: string): { token: string; secondsRemaining: number } {
   try {
@@ -50,7 +72,9 @@ function calculateTOTP(secret: string, counter: number): string {
     // Decode the base32 secret
     let key;
     try {
-      key = Base32.parse(secret);
+      // Use our custom base32 decoder
+      const hexKey = base32ToHex(secret);
+      key = Hex.parse(hexKey);
     } catch (e) {
       // If not valid base32, try to use it directly (might be hex or raw)
       key = secret;
