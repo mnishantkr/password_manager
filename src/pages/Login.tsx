@@ -20,11 +20,18 @@ const Login = () => {
       const isValid = validateMasterPassword(password);
       
       if (isValid) {
+        // Set authentication state in localStorage
+        localStorage.setItem('encryptionKeyAvailable', 'true');
+        
         toast({
           title: "Login successful",
           description: "Welcome back to your secure vault."
         });
-        navigate('/dashboard');
+        
+        // Use a small timeout to ensure state changes before navigation
+        setTimeout(() => {
+          navigate('/dashboard');
+        }, 100);
       } else {
         toast({
           title: "Incorrect password",
