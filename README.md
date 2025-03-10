@@ -1,5 +1,4 @@
-# Welcome to your Lovable project
-
+## Make by Nish !!
 
 ## How can I edit this code?
 
@@ -57,4 +56,4 @@ This project is built with .
 
 ## I want to use a custom domain - is that possible?
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](#)
